@@ -1,0 +1,42 @@
+@startuml
+Actor "Пользователь" as u
+Boundary "Интерфейс" as c
+Control "Сервер" as s
+Database "База данных" as db
+u -> c: Запросить витрину товаров
+activate c
+c -> s: Запросить список товаров
+activate s
+s -> db: Запросить список товаров из базы
+activate db
+db --> s: Вернуть список товаров
+deactivate db
+s --> c: Вернуть список товаров\nс кратким описанием
+deactivate s
+c --> u: Отобразить витрину товаров
+deactivate c
+u -> c: Нажать на товар
+activate c
+c -> s: Запросить детальную информацию\nо товаре
+activate s
+s -> db: Запросить детальную информацию\nо товаре
+activate db
+db --> s: Вернуть детальную информацию\nо товаре
+deactivate db
+s --> c: Вернуть детальную информацию
+deactivate s
+c--> u: Отобразить страницу товара 
+deactivate c
+u -> c: Добавить товар в корзину  
+activate c
+c -> s: Отправить запрос на добавление\nв корзину
+activate s
+s -> db: Обновить данные корзины
+activate db
+db --> s: Подтвердить обновление корзины
+deactivate db
+s --> c: Подтвердить добавление в корзину
+deactivate s
+c --> u: Отобразить добавление в корзину 
+deactivate c
+@enduml
